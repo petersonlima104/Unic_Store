@@ -1,0 +1,17 @@
+body {
+  background-color: #f8f9fa;
+}
+.container {
+  margin-top: 50px;
+  text-align: center;
+}
+.product-card {
+  margin-bottom: 30px;
+}
+.quantity-input {
+  width: 60px;
+}
+.product-image {
+  width: 200px;
+  height: 200px;
+}

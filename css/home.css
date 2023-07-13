@@ -1,0 +1,18 @@
+body {
+  background-color: #f8f9fa;
+}
+
+.container {
+  margin-top: 50px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 48px;
+  margin-bottom: 30px;
+}
+
+p {
+  font-size: 24px;
+  color: #555;
+}

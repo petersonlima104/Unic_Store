@@ -1,0 +1,12 @@
+body {
+  background-color: #f8f9fa;
+}
+.container {
+  margin-top: 50px;
+}
+.product-card {
+  margin-bottom: 30px;
+}
+.quantity-input {
+  width: 60px;
+}
