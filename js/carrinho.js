@@ -101,6 +101,49 @@ function loadCartItems() {
   }
 }
 
+// Função para obter o valor total do carrinho
+function getTotalPrice() {
+  var totalPrice = 0;
+  cartItems.forEach(function (item) {
+    totalPrice += item.product.price * item.quantity;
+  });
+  return totalPrice;
+}
+
+// Função para atualizar o total da compra
+function updateTotalPrice() {
+  var totalPrice = getTotalPrice();
+
+  var totalPriceElement = document.getElementById("total-price");
+  totalPriceElement.textContent = "Total: R$ " + totalPrice.toFixed(2);
+}
+
+// Função para compartilhar o carrinho via WhatsApp
+function shareCartViaWhatsApp() {
+  var message =
+    "*Olá, tudo bem?*\n" + "*Segue o pedido abaixo com os itens que desejo:*\n";
+
+  cartItems.forEach(function (item) {
+    message +=
+      item.product.name +
+      " - R$ " +
+      (item.product.price * item.quantity).toFixed(2) +
+      "\n";
+  });
+
+  message += "*Total: R$ " + getTotalPrice().toFixed(2) + "*";
+
+  var phoneNumber = "5551980533399"; // Telefone direcionado para envio da mensagem
+
+  var whatsappLink =
+    "https://api.whatsapp.com/send?phone=" +
+    phoneNumber +
+    "&text=" +
+    encodeURIComponent(message);
+
+  window.open(whatsappLink, "_blank");
+}
+
 // Função para renderizar os itens do carrinho
 function renderCartItems() {
   updateCartDisplay();
