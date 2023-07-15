@@ -124,6 +124,11 @@ function renderProducts() {
       productImage.setAttribute("src", product.image);
       productImage.setAttribute("alt", product.name);
 
+      // Adicione um atributo 'data-target' com o ID do produto para identificá-lo no modal
+      productImage.setAttribute("data-toggle", "modal");
+      productImage.setAttribute("data-target", "#mediaModal");
+      productImage.setAttribute("data-product-id", product.id); // Novo atributo
+
       var productName = document.createElement("h5");
       productName.classList.add("card-title");
       productName.textContent = product.name;
@@ -221,6 +226,70 @@ function loadCartItems() {
 // Renderiza os produtos inicialmente
 renderProducts();
 loadCartItems();
+
+// Função para renderizar a mídia do produto no modal
+function renderProductMedia(productId) {
+  var product = products.find(function (item) {
+    return item.id === productId;
+  });
+
+  var mediaIndicators = document.getElementById("mediaIndicators");
+  var mediaItems = document.getElementById("mediaItems");
+
+  mediaIndicators.innerHTML = "";
+  mediaItems.innerHTML = "";
+
+  // Renderizar imagens
+  product.images.forEach(function (image, index) {
+    var indicator = document.createElement("li");
+    indicator.setAttribute("data-target", "#mediaCarousel");
+    indicator.setAttribute("data-slide-to", index.toString());
+    if (index === 0) {
+      indicator.classList.add("active");
+    }
+    mediaIndicators.appendChild(indicator);
+
+    var item = document.createElement("div");
+    item.classList.add("carousel-item");
+    if (index === 0) {
+      item.classList.add("active");
+    }
+
+    var imageElement = document.createElement("img");
+    imageElement.classList.add("d-block", "w-100");
+    imageElement.setAttribute("src", image);
+    imageElement.setAttribute("alt", product.name);
+
+    item.appendChild(imageElement);
+    mediaItems.appendChild(item);
+  });
+
+  // Renderizar vídeos locais
+  product.videos.forEach(function (video) {
+    var item = document.createElement("div");
+    item.classList.add("carousel-item");
+
+    var videoElement = document.createElement("video");
+    videoElement.classList.add("d-block", "w-100");
+    videoElement.setAttribute("controls", "");
+
+    var sourceElement = document.createElement("source");
+    sourceElement.setAttribute("src", video);
+    sourceElement.setAttribute("type", "video/mp4");
+
+    videoElement.appendChild(sourceElement);
+    item.appendChild(videoElement);
+    mediaItems.appendChild(item);
+  });
+}
+
+// Evento de clique na imagem do produto
+document.addEventListener("click", function (event) {
+  if (event.target.matches(".product-image")) {
+    var productId = event.target.getAttribute("data-product-id");
+    renderProductMedia(parseInt(productId));
+  }
+});
 
 // Evento de digitação no campo de pesquisa
 var searchInput = document.getElementById("search-input");
