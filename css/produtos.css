@@ -1,17 +1,34 @@
 body {
   background-color: #f8f9fa;
 }
+
 .container {
   margin-top: 50px;
   text-align: center;
 }
+
 .product-card {
   margin-bottom: 30px;
 }
+
 .quantity-input {
   width: 60px;
 }
+
 .product-image {
   width: 200px;
   height: 200px;
+}
+
+.media-modal .modal-dialog {
+  max-width: 500px; /* Defina o tamanho máximo desejado */
+}
+
+.media-modal .modal-content {
+  max-height: 560px; /* Defina a altura máxima desejada */
+  overflow-y: auto; /* Habilita a rolagem vertical quando o conteúdo é maior que o tamanho máximo */
+}
+
+.media-modal .carousel-item {
+  max-height: 560px; /* Defina a altura máxima dos itens do carrossel */
 }
