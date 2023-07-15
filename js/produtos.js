@@ -4,97 +4,141 @@ var products = [
     id: 1,
     name: "Liquidificador - Mondial",
     price: 70,
-    image: "/img/product1.jpg",
+    images: ["/img/product1.jpg", "/img/product1_2.jpg", "/img/product1_3.jpg"],
+    videos: ["/video/product1.mp4", "/video/product1_2.mp4"],
   },
   {
     id: 2,
     name: "AirFrier - Fritadeira Elétrica",
     price: 350,
-    image: "/img/product2.jpg",
+    images: ["/img/product2.jpg", "/img/product2_2.jpg", "/img/product2_3.jpg"],
+    videos: ["/video/product2.mp4", "/video/product2_2.mp4"],
   },
   {
     id: 3,
     name: "Panela de Pressão 4.5L",
     price: 79,
-    image: "/img/product3.jpg",
+    images: ["/img/product3.jpg", "/img/product3_2.jpg", "/img/product3_3.jpg"],
+    videos: [],
   },
   {
     id: 4,
     name: "Garrafa Térmica",
     price: 30,
-    image: "/img/product4.jpg",
+    images: ["/img/product4.jpg", "/img/product4_2.jpg", "/img/product4_3.jpg"],
+    videos: [],
   },
   {
     id: 5,
     name: "Aparador/Tosador de Pelos",
     price: 135,
-    image: "/img/product5.jpg",
+    images: ["/img/product5.jpg", "/img/product4_2.jpg", "/img/product4_3.jpg"],
+    videos: [],
   },
   {
     id: 6,
     name: "Micro-ondas Electrolux 31 Litros",
     price: 764,
-    image: "/img/product6.jpg",
+    images: ["/img/product6.jpg", "/img/product4_2.jpg", "/img/product4_3.jpg"],
+    videos: [],
   },
   {
     id: 7,
     name: "Cooktop 5 Bocas a Gás Tripla Chama",
     price: 439,
-    image: "/img/product7.jpg",
+    images: ["/img/product7.jpg", "/img/product4_2.jpg", "/img/product4_3.jpg"],
+    videos: [],
   },
   {
     id: 8,
     name: "Lavadora de Roupas 12Kg",
     price: 1899,
-    image: "/img/product8.jpg",
+    images: ["/img/product8.jpg", "/img/product4_2.jpg", "/img/product4_3.jpg"],
+    videos: [],
   },
   {
     id: 9,
     name: "Forno Elétrico de Bancada Mondial com Timer - 52L",
     price: 503,
-    image: "/img/product9.jpg",
+    images: ["/img/product9.jpg", "/img/product4_2.jpg", "/img/product4_3.jpg"],
+    videos: [],
   },
   {
     id: 10,
     name: "Smart TV 43” UHD 4K LED Samsung",
     price: 2199,
-    image: "/img/product10.jpg",
+    images: [
+      "/img/product10.jpg",
+      "/img/product4_2.jpg",
+      "/img/product4_3.jpg",
+    ],
+    videos: [],
   },
   {
     id: 11,
     name: "Google Chromecast 3 - Streaming em Full HD",
     price: 319,
-    image: "/img/product11.jpg",
+    images: [
+      "/img/product11.jpg",
+      "/img/product4_2.jpg",
+      "/img/product4_3.jpg",
+    ],
+    videos: [],
   },
   {
     id: 12,
     name: "Notebook 500 SDD - 4gb Ram Sansung",
     price: 4799,
-    image: "/img/product12.jpg",
+    images: [
+      "/img/product12.jpg",
+      "/img/product4_2.jpg",
+      "/img/product4_3.jpg",
+    ],
+    videos: [],
   },
   {
     id: 13,
     name: "Impressora Multifuncional HP Deskjet Ink Advantage",
     price: 325,
-    image: "/img/product13.jpg",
+    images: [
+      "/img/product13.jpg",
+      "/img/product4_2.jpg",
+      "/img/product4_3.jpg",
+    ],
+    videos: [],
   },
   {
     id: 14,
     name: "Cartucho HP 664XL preto Original",
     price: 139,
-    image: "/img/product14.jpg",
+    images: [
+      "/img/product14.jpg",
+      "/img/product4_2.jpg",
+      "/img/product4_3.jpg",
+    ],
+    videos: [],
   },
   {
     id: 15,
     name: "Repetidor e Amplificador De Sinal Wi-fi",
     price: 53,
-    image: "/img/product15.jpg",
+    images: [
+      "/img/product15.jpg",
+      "/img/product4_2.jpg",
+      "/img/product4_3.jpg",
+    ],
+    videos: [],
   },
   {
     id: 16,
     name: "Teclado e Mouse sem fio com Conexão USB e Layout ABNT2",
     price: 124,
-    image: "/img/product16.jpg",
+    images: [
+      "/img/product16.jpg",
+      "/img/product4_2.jpg",
+      "/img/product4_3.jpg",
+    ],
+    videos: [],
   },
 ];
 
@@ -121,7 +165,7 @@ function renderProducts() {
 
       var productImage = document.createElement("img");
       productImage.classList.add("card-img-top", "product-image");
-      productImage.setAttribute("src", product.image);
+      productImage.setAttribute("src", product.images[0]);
       productImage.setAttribute("alt", product.name);
 
       // Adicione um atributo 'data-target' com o ID do produto para identificá-lo no modal
