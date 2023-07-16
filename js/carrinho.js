@@ -1,3 +1,10 @@
+// Função para limpar o carrinho
+function clearCart() {
+  cartItems = [];
+  saveCartItems();
+  updateCartDisplay();
+}
+
 // Função para atualizar a exibição do carrinho
 function updateCartDisplay() {
   var cartItemsElement = document.getElementById("cart-items");
@@ -173,6 +180,7 @@ function shareCartViaWhatsApp() {
     displayMessage("Não há itens no carrinho.");
     return;
   }
+
   var message =
     "*Olá, tudo bem?*\n" + "*Segue o pedido abaixo com os itens que desejo:*\n";
 
