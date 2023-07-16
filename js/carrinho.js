@@ -1,70 +1,85 @@
 // Função para atualizar a exibição do carrinho
 function updateCartDisplay() {
   var cartItemsElement = document.getElementById("cart-items");
+  var totalItems = cartItems.length;
+
   cartItemsElement.innerHTML = "";
 
-  cartItems.forEach(function (item) {
-    var cartItem = document.createElement("li");
-    cartItem.classList.add("list-group-item");
+  if (totalItems === 0) {
+    var emptyMessage = document.createElement("li");
+    emptyMessage.classList.add("list-group-item");
+    emptyMessage.textContent = "Não há itens no carrinho";
+    cartItemsElement.appendChild(emptyMessage);
+  } else {
+    cartItems.forEach(function (item) {
+      var cartItem = document.createElement("li");
+      cartItem.classList.add("list-group-item");
 
-    var itemName = document.createElement("span");
-    itemName.textContent = item.product.name;
+      var itemName = document.createElement("span");
+      itemName.textContent = item.product.name;
 
-    var itemPrice = document.createElement("span");
-    itemPrice.classList.add("float-right");
-    itemPrice.textContent =
-      "R$ " + (item.product.price * item.quantity).toFixed(2);
+      var itemPrice = document.createElement("span");
+      itemPrice.classList.add("float-right");
+      itemPrice.textContent =
+        "R$ " + (item.product.price * item.quantity).toFixed(2);
 
-    var quantityLabel = document.createElement("label");
-    quantityLabel.setAttribute("for", "quantity-input-cart-" + item.product.id);
-    quantityLabel.textContent = "Quantidade: ";
+      var quantityLabel = document.createElement("label");
+      quantityLabel.setAttribute(
+        "for",
+        "quantity-input-cart-" + item.product.id
+      );
+      quantityLabel.textContent = "Quantidade: ";
 
-    var quantityInput = document.createElement("input");
-    quantityInput.setAttribute("type", "number");
-    quantityInput.setAttribute("id", "quantity-input-cart-" + item.product.id);
-    quantityInput.classList.add("quantity-input");
-    quantityInput.value = item.quantity;
-    quantityInput.addEventListener("change", function () {
-      var newQuantity = parseInt(quantityInput.value);
+      var quantityInput = document.createElement("input");
+      quantityInput.setAttribute("type", "number");
+      quantityInput.setAttribute(
+        "id",
+        "quantity-input-cart-" + item.product.id
+      );
+      quantityInput.classList.add("quantity-input");
+      quantityInput.value = item.quantity;
+      quantityInput.addEventListener("change", function () {
+        var newQuantity = parseInt(quantityInput.value);
 
-      // Restrição de quantidade mínima e máxima
-      if (newQuantity < 1) {
-        newQuantity = 1;
-      } else if (newQuantity > 10) {
-        newQuantity = 10;
-      }
+        // Restrição de quantidade mínima e máxima
+        if (newQuantity < 1) {
+          newQuantity = 1;
+        } else if (newQuantity > 10) {
+          newQuantity = 10;
+        }
 
-      quantityInput.value = newQuantity;
+        quantityInput.value = newQuantity;
 
-      updateCartItemQuantity(item.product.id, newQuantity);
-      saveCartItems();
-      updateCartDisplay();
+        updateCartItemQuantity(item.product.id, newQuantity);
+        saveCartItems();
+        updateCartDisplay();
+      });
+
+      var removeButton = document.createElement("button");
+      removeButton.classList.add(
+        "btn",
+        "btn-danger",
+        "btn-sm",
+        "float-right",
+        "mr-2"
+      );
+      removeButton.textContent = "Remover";
+      removeButton.addEventListener("click", function () {
+        removeFromCart(item.product.id);
+        saveCartItems(); // Salva os itens do carrinho no localStorage
+        updateCartDisplay(); // Atualiza a exibição do carrinho
+      });
+
+      cartItem.appendChild(itemName);
+      cartItem.appendChild(itemPrice);
+      cartItem.appendChild(removeButton);
+      cartItem.appendChild(document.createElement("br"));
+      cartItem.appendChild(quantityLabel);
+      cartItem.appendChild(quantityInput);
+
+      cartItemsElement.appendChild(cartItem);
     });
-
-    var removeButton = document.createElement("button");
-    removeButton.classList.add(
-      "btn",
-      "btn-danger",
-      "btn-sm",
-      "float-right",
-      "mr-2"
-    );
-    removeButton.textContent = "Remover";
-    removeButton.addEventListener("click", function () {
-      removeFromCart(item.product.id);
-      saveCartItems(); // Salva os itens do carrinho no localStorage
-      updateCartDisplay(); // Atualiza a exibição do carrinho
-    });
-
-    cartItem.appendChild(itemName);
-    cartItem.appendChild(itemPrice);
-    cartItem.appendChild(removeButton);
-    cartItem.appendChild(document.createElement("br"));
-    cartItem.appendChild(quantityLabel);
-    cartItem.appendChild(quantityInput);
-
-    cartItemsElement.appendChild(cartItem);
-  });
+  }
 
   updateTotalPrice();
 }
@@ -136,8 +151,28 @@ function updateTotalPrice() {
   totalPriceElement.textContent = "Total: R$ " + totalPrice.toFixed(2);
 }
 
+// Função para exibir a mensagem após o evento do botão com carrinho vazio
+function displayMessage(message) {
+  var messageElement = document.createElement("p");
+  messageElement.classList.add("message");
+  messageElement.textContent = message;
+
+  var container = document.querySelector(".container");
+  container.appendChild(messageElement);
+
+  setTimeout(function () {
+    messageElement.remove();
+  }, 2000);
+}
+
 // Função para compartilhar o carrinho via WhatsApp
 function shareCartViaWhatsApp() {
+  var totalItems = cartItems.length;
+
+  if (totalItems === 0) {
+    displayMessage("Não há itens no carrinho.");
+    return;
+  }
   var message =
     "*Olá, tudo bem?*\n" + "*Segue o pedido abaixo com os itens que desejo:*\n";
 
