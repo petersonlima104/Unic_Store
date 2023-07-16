@@ -20,15 +20,26 @@ body {
   height: 200px;
 }
 
+.product-image:hover {
+  width: 230px;
+  height: 230px;
+  cursor: pointer;
+}
+
+img {
+  max-width: 500px;
+  max-height: 480px;
+}
+
 .media-modal .modal-dialog {
   max-width: 500px; /* Defina o tamanho máximo desejado */
 }
 
 .media-modal .modal-content {
-  max-height: 560px; /* Defina a altura máxima desejada */
+  max-height: 570px; /* Defina a altura máxima desejada */
   overflow-y: auto; /* Habilita a rolagem vertical quando o conteúdo é maior que o tamanho máximo */
 }
 
 .media-modal .carousel-item {
-  max-height: 560px; /* Defina a altura máxima dos itens do carrossel */
+  max-height: 480px; /* Defina a altura máxima dos itens do carrossel */
 }
