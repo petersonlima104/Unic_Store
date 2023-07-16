@@ -172,7 +172,7 @@ function displayMessage(message) {
   }, 2000);
 }
 
-// Função para compartilhar o carrinho via WhatsApp
+// Função para compartilhar o carrinho via WhatsApp e salvar a compra
 function shareCartViaWhatsApp() {
   var totalItems = cartItems.length;
 
@@ -202,7 +202,61 @@ function shareCartViaWhatsApp() {
     "&text=" +
     encodeURIComponent(message);
 
+  // Salvar a compra no localStorage
+  var compra = {
+    id: generateId(), // Gere um ID único para a compra
+    produtos: getCartItemsString(),
+    total: getTotalPrice().toFixed(2),
+  };
+
+  saveCompra(compra); // Salvar a compra no localStorage
+
   window.open(whatsappLink, "_blank");
+}
+
+// Função para gerar um ID único para a compra
+function generateId() {
+  // Usando o pacote 'uuid' para implementar geração de ID.
+  // ADD no HTML o script abaixo para essa função:
+  // <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script> ao seu HTML
+  // A função uuidv4() retorna um ID único em formato string
+  return uuidv4() + "   --   Data: " + getFormattedDateTime();
+}
+
+// Função para obter a data e hora atual das postagens
+function getFormattedDateTime() {
+  var now = new Date();
+  var date = now.toLocaleDateString();
+  var time = now.toLocaleTimeString();
+  return date + " - " + time;
+}
+
+// Função para obter os produtos do carrinho como uma string formatada
+function getCartItemsString() {
+  var itemsString = "";
+  cartItems.forEach(function (item) {
+    itemsString +=
+      item.product.name +
+      " - Qt: " +
+      item.quantity +
+      " - R$ " +
+      (item.product.price * item.quantity).toFixed(2) +
+      " _ >>> _ \n";
+  });
+  return itemsString;
+}
+
+// Função para salvar a compra no localStorage
+function saveCompra(compra) {
+  var savedCompras = localStorage.getItem("compras");
+  var compras = [];
+
+  if (savedCompras) {
+    compras = JSON.parse(savedCompras);
+  }
+
+  compras.push(compra);
+  localStorage.setItem("compras", JSON.stringify(compras));
 }
 
 // Função para renderizar os itens do carrinho
