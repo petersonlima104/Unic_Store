@@ -25,9 +25,20 @@ function updateCartDisplay() {
     quantityInput.classList.add("quantity-input");
     quantityInput.value = item.quantity;
     quantityInput.addEventListener("change", function () {
-      updateCartItemQuantity(item.product.id, parseInt(quantityInput.value));
-      saveCartItems(); // Salva os itens do carrinho no localStorage
-      updateCartDisplay(); // Atualiza a exibição do carrinho
+      var newQuantity = parseInt(quantityInput.value);
+
+      // Restrição de quantidade mínima e máxima
+      if (newQuantity < 1) {
+        newQuantity = 1;
+      } else if (newQuantity > 10) {
+        newQuantity = 10;
+      }
+
+      quantityInput.value = newQuantity;
+
+      updateCartItemQuantity(item.product.id, newQuantity);
+      saveCartItems();
+      updateCartDisplay();
     });
 
     var removeButton = document.createElement("button");
@@ -65,6 +76,13 @@ function updateCartItemQuantity(productId, quantity) {
   });
 
   if (item) {
+    // Restrição de quantidade mínima e máxima
+    if (quantity < 1) {
+      quantity = 1;
+    } else if (quantity > 10) {
+      quantity = 10;
+    }
+
     item.quantity = quantity;
   }
 }
