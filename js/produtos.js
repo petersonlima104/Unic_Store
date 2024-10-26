@@ -267,6 +267,20 @@ function loadCartItems() {
   }
 }
 
+function sortProducts() {
+  const sortOption = document.getElementById("sort-options").value;
+
+  if (sortOption === "alphabetical") {
+    products.sort((a, b) => a.name.localeCompare(b.name));
+  } else if (sortOption === "price-asc") {
+    products.sort((a, b) => a.price - b.price);
+  } else if (sortOption === "price-desc") {
+    products.sort((a, b) => b.price - a.price);
+  }
+
+  renderProducts(); // Re-renderiza os produtos após a ordenação
+}
+
 // Renderiza os produtos inicialmente
 renderProducts();
 loadCartItems();

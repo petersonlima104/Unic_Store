@@ -68,6 +68,16 @@
         />
       </div>
 
+      <div class="sort-container">
+        <label for="sort-options">Ordenar por:</label>
+        <select id="sort-options" onchange="sortProducts()">
+          <option value="default">Selecione</option>
+          <option value="alphabetical">Ordem Alfabética</option>
+          <option value="price-asc">Preço: Menor para Maior</option>
+          <option value="price-desc">Preço: Maior para Menor</option>
+        </select>
+      </div>
+
       <div class="row" id="product-list">
         <!-- Produtos serão adicionados dinamicamente aqui -->
       </div>

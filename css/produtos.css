@@ -43,3 +43,15 @@ img {
 .media-modal .carousel-item {
   max-height: 480px; /* Defina a altura máxima dos itens do carrossel */
 }
+
+.sort-container {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+#sort-options {
+  padding: 5px;
+}
